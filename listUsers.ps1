@@ -1,19 +1,10 @@
-$s = "LDAP://CN=Users,CN=LDAP,DC=sqrawler,DC=com"
-$Root = New-Object DirectoryServices.DirectoryEntry $s
+$s = "LDAP://CN=Users"
+$root = New-Object DirectoryServices.DirectoryEntry $s
  
-# Create a selector and start searching from the Root of AD
 $selector = New-Object DirectoryServices.DirectorySearcher
 $selector.SearchRoot = $root
 
-# Filter the users with -like "CN=Person*". Note the ForEach loop
-$adobj= $selector.findall() | where {
-$_.properties.objectcategory -like "CN=Person*"
-}
-foreach ($person in $adobj)
-{
-$prop=$person.properties
-Write-host "First name: $($prop.givenname) Surname: $($prop.sn) User: $($prop.cn)"
-}
-Write-host "There are $($adobj.count) users in the $($root.name) domain"
+$find= $selector.findall()
+
+Write-host $find
  
-read-host
