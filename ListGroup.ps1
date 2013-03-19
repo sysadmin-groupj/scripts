@@ -1,9 +1,6 @@
-@'
-param(
-	[string]$group
-)
 
-$s = "LDAP://CN=$group"
+write-host $args[1]
+$s = "LDAP://CN=$args[1]"
 $root = New-Object DirectoryServices.DirectoryEntry $s
  
 $selector = New-Object DirectoryServices.DirectorySearcher
